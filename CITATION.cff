@@ -9,7 +9,7 @@ authors:
     orcid: "https://orcid.org/0009-0005-5548-3016"
 repository-code: "https://github.com/Rishav1996/model-router"
 license: MIT
-version: 1.0.0
+version: 1.0.1
 date-released: 2026-07-24
 abstract: >
   A Claude Code / Claude API skill that recommends the cheapest Claude model
