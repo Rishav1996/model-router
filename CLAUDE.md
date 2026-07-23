@@ -1,0 +1,39 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repository is
+
+This is not application source code — it's the source for a single Claude Code **skill** called `model-router`, distributed as a packaged `.skill` file. The skill recommends the cheapest Claude model and effort level for a given task, using a two-axis scoring system rather than a single complexity score.
+
+There is no build, lint, or test tooling. The only "artifact" is `model-router.skill`, a zip archive (renamed) containing the packaged skill.
+
+## Files
+
+- [SKILL.md](SKILL.md) — the skill definition itself (frontmatter `name`/`description` + body). This is what gets loaded when the skill triggers. Contains the two-axis scoring model, the capability-floor → model table, the cost-exposure → lever table, the downgrade test, output format, and worked examples.
+- [model-catalog.md](model-catalog.md) — reference doc: per-token pricing, context limits, effort-level support per model, discount levers (caching/batch), cost math. Meant to be read on demand, not loaded every turn.
+- [scoring-rubric.md](scoring-rubric.md) — reference doc: exemplar anchors for each of the five scoring dimensions (D/S/A/C/O), tie-break rules, common misscoring patterns, and guidance for reading the self-calibration override log.
+- `model-router.skill` — a zip archive bundling `model-router/SKILL.md`, `model-router/references/scoring-rubric.md`, and `model-router/references/model-catalog.md`. This is the distributable package; **rebuild it from the source `.md` files above whenever they change** rather than editing the archive directly.
+
+## Architecture: how the skill's logic fits together
+
+The core idea (in SKILL.md) is that "how capable a model must be" and "how much the task will cost" are separate axes, scored independently, because they're driven by different levers:
+
+- **Capability floor = max(D, S, A)** — Depth, Stakes, Agentic-loop. A *maximum*: the hardest single dimension sets the floor, they don't sum.
+- **Cost exposure = C + O + A** — Context, Output volume, Agentic-loop. *Additive*: tokens accumulate.
+- `A` (agentic loop) deliberately appears in both formulas — a long tool loop is both harder to get right and more expensive to run.
+
+Flow when the skill is invoked:
+1. Score the five dimensions (0–3 each) against the **exemplars** in scoring-rubric.md, not the abstract band labels in SKILL.md — exemplars are the stable reference; prose definitions drift.
+2. Capability floor picks the model (Haiku/Sonnet/Opus/Fable) and baseline effort.
+3. Cost exposure picks which optimization lever to reach for first — scoping > caching/batching > stepping effort down > downgrading the model, in that order. Model downgrade is last-resort and gated by the explicit `P(failure) × cost < savings` test in SKILL.md, never done on score alone.
+4. Output is a strict 3-line banner (model/effort/thinking, why, lever) — the skill is meant to run on every turn, so verbosity there gets it disabled.
+
+model-catalog.md and scoring-rubric.md are pulled in only when needed (ambiguous scoring, user pushback, or a need for actual pricing/effort-support facts) — SKILL.md is the always-loaded part.
+
+## Editing this skill
+
+- Keep SKILL.md's ban on "prose definitions" honest: dimension scoring guidance belongs in scoring-rubric.md's exemplar tables, not as new adjective-based rules in SKILL.md.
+- Pricing/model facts in model-catalog.md are dated ("Verified against ... on 24 July 2026") and expected to go stale — update the verification date when you touch prices, and don't let SKILL.md duplicate numbers that live in model-catalog.md.
+- The self-calibration log (`model-router-log.md`) mechanism described in SKILL.md only works in Claude Code (persistent filesystem); don't extend that mechanism's claims to the Claude app or API surfaces, which SKILL.md explicitly says stay uncalibrated.
+- After editing any of the three source `.md` files, repackage `model-router.skill` (zip of `model-router/SKILL.md` + `model-router/references/{scoring-rubric.md,model-catalog.md}`) so the distributed archive matches source.
