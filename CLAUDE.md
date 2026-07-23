@@ -4,16 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repository is
 
-This is not application source code — it's the source for a single Claude Code **skill** called `model-router`, distributed as a packaged `.skill` file. The skill recommends the cheapest Claude model and effort level for a given task, using a two-axis scoring system rather than a single complexity score.
+This is a Claude Code **plugin** (and marketplace of one) containing a single skill, `model-router`. It recommends the cheapest Claude model and effort level for a given task, using a two-axis scoring system rather than a single complexity score. It's installable three ways: as a plugin via `/plugin marketplace add Rishav1996/model-router` + `/plugin install model-router`, as a raw skill folder copied into `~/.claude/skills/`, or via the standalone `model-router.skill` archive.
 
-There is no build, lint, or test tooling. The only "artifact" is `model-router.skill`, a zip archive (renamed) containing the packaged skill.
+There is no build, lint, or test tooling. `model-router.skill` is a zip archive (renamed) that must be kept in sync with the skill source under `skills/model-router/`.
 
 ## Files
 
-- [SKILL.md](SKILL.md) — the skill definition itself (frontmatter `name`/`description` + body). This is what gets loaded when the skill triggers. Contains the two-axis scoring model, the capability-floor → model table, the cost-exposure → lever table, the downgrade test, output format, and worked examples.
-- [model-catalog.md](model-catalog.md) — reference doc: per-token pricing, context limits, effort-level support per model, discount levers (caching/batch), cost math. Meant to be read on demand, not loaded every turn.
-- [scoring-rubric.md](scoring-rubric.md) — reference doc: exemplar anchors for each of the five scoring dimensions (D/S/A/C/O), tie-break rules, common misscoring patterns, and guidance for reading the self-calibration override log.
-- `model-router.skill` — a zip archive bundling `model-router/SKILL.md`, `model-router/references/scoring-rubric.md`, and `model-router/references/model-catalog.md`. This is the distributable package; **rebuild it from the source `.md` files above whenever they change** rather than editing the archive directly.
+- [.claude-plugin/plugin.json](.claude-plugin/plugin.json) — the plugin manifest (name, version, metadata). `skills/` is auto-discovered by directory convention; no explicit path needed here.
+- [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) — makes this repo installable as its own marketplace; its one `plugins[]` entry points `source` at `.` (the repo root, since the plugin manifest lives here too).
+- [skills/model-router/SKILL.md](skills/model-router/SKILL.md) — the skill definition itself (frontmatter `name`/`description` + body). This is what gets loaded when the skill triggers. Contains the two-axis scoring model, the capability-floor → model table, the cost-exposure → lever table, the downgrade test, output format, and worked examples.
+- [skills/model-router/references/model-catalog.md](skills/model-router/references/model-catalog.md) — reference doc: per-token pricing, context limits, effort-level support per model, discount levers (caching/batch), cost math. Meant to be read on demand, not loaded every turn.
+- [skills/model-router/references/scoring-rubric.md](skills/model-router/references/scoring-rubric.md) — reference doc: exemplar anchors for each of the five scoring dimensions (D/S/A/C/O), tie-break rules, common misscoring patterns, and guidance for reading the self-calibration override log.
+- `model-router.skill` — a zip archive bundling `model-router/SKILL.md`, `model-router/references/scoring-rubric.md`, and `model-router/references/model-catalog.md` (for the non-plugin, drop-into-a-skills-folder install path). **Rebuild it from `skills/model-router/` whenever that source changes** rather than editing the archive directly.
 
 ## Architecture: how the skill's logic fits together
 
@@ -36,4 +38,5 @@ model-catalog.md and scoring-rubric.md are pulled in only when needed (ambiguous
 - Keep SKILL.md's ban on "prose definitions" honest: dimension scoring guidance belongs in scoring-rubric.md's exemplar tables, not as new adjective-based rules in SKILL.md.
 - Pricing/model facts in model-catalog.md are dated ("Verified against ... on 24 July 2026") and expected to go stale — update the verification date when you touch prices, and don't let SKILL.md duplicate numbers that live in model-catalog.md.
 - The self-calibration log (`model-router-log.md`) mechanism described in SKILL.md only works in Claude Code (persistent filesystem); don't extend that mechanism's claims to the Claude app or API surfaces, which SKILL.md explicitly says stay uncalibrated.
-- After editing any of the three source `.md` files, repackage `model-router.skill` (zip of `model-router/SKILL.md` + `model-router/references/{scoring-rubric.md,model-catalog.md}`) so the distributed archive matches source.
+- After editing any file under `skills/model-router/`, repackage `model-router.skill` (zip of `model-router/SKILL.md` + `model-router/references/{scoring-rubric.md,model-catalog.md}`) so the distributed archive matches source.
+- If you bump the skill's behavior in a user-visible way, bump `version` in both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together — they're currently kept in lockstep for this single-plugin repo.

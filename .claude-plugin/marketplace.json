@@ -1,0 +1,15 @@
+{
+  "name": "model-router-marketplace",
+  "owner": {
+    "name": "Rishav Saigal",
+    "email": "rishavsaigal@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "model-router",
+      "source": ".",
+      "description": "Recommends the cheapest Claude model and effort level that will still get a task right on the first try, by scoring capability requirements and cost exposure as two separate axes.",
+      "version": "1.0.0"
+    }
+  ]
+}

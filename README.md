@@ -13,16 +13,26 @@ The floor picks the model. The exposure picks which lever to pull to save money 
 
 ## What's in this repo
 
+This repo is both a **Claude Code plugin** and its own **marketplace** (a single-plugin marketplace pointed at the repo root).
+
 | File | Purpose |
 |---|---|
-| [`SKILL.md`](SKILL.md) | The skill definition — scoring model, model/effort mapping, output format, worked examples. This is what gets loaded when the skill triggers. |
-| [`model-catalog.md`](model-catalog.md) | Reference doc: per-token pricing, context windows, effort-level support per model, discount levers (caching/batch), cost math. |
-| [`scoring-rubric.md`](scoring-rubric.md) | Reference doc: exemplar anchors for each scoring dimension, tie-break rules, common misscoring patterns. |
-| [`model-router.skill`](model-router.skill) | Packaged distributable — a zip archive bundling the three files above under `model-router/`, ready to drop into a skills directory. |
+| [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) | Plugin manifest — name, version, metadata. `skills/` is auto-discovered by directory convention. |
+| [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) | Makes this repo installable via `/plugin marketplace add`. |
+| [`skills/model-router/SKILL.md`](skills/model-router/SKILL.md) | The skill definition — scoring model, model/effort mapping, output format, worked examples. This is what gets loaded when the skill triggers. |
+| [`skills/model-router/references/model-catalog.md`](skills/model-router/references/model-catalog.md) | Reference doc: per-token pricing, context windows, effort-level support per model, discount levers (caching/batch), cost math. |
+| [`skills/model-router/references/scoring-rubric.md`](skills/model-router/references/scoring-rubric.md) | Reference doc: exemplar anchors for each scoring dimension, tie-break rules, common misscoring patterns. |
+| [`model-router.skill`](model-router.skill) | Standalone packaged distributable (for non-plugin installs) — a zip archive bundling the skill files above under `model-router/`, ready to drop into a skills directory. |
 
 ## Install
 
-**Claude Code:** unzip `model-router.skill` (or copy the three source files) into your skills directory as `model-router/`, with `SKILL.md` at the top level and the other two files under `references/`.
+**Claude Code (plugin — recommended):**
+```
+/plugin marketplace add Rishav1996/model-router
+/plugin install model-router
+```
+
+**Claude Code (skill only, no plugin):** unzip `model-router.skill` (or copy `skills/model-router/`) into your skills directory as `model-router/`, with `SKILL.md` at the top level and the reference files under `references/`.
 
 **Claude app:** paste the contents of `SKILL.md` into a project's custom instructions, or reference it manually — the app has no persistent skills directory, so the self-calibration log feature (see below) won't function there.
 
