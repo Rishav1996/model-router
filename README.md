@@ -73,7 +73,7 @@ Authored by **Rishav Saigal**. This repo is MIT-licensed — free to use, adapt,
 }
 ```
 
-Or plain text: *"model-router" by Rishav Saigal — https://github.com/Rishav1996/model-router*
+Or plain text: *"model-router" by Rishav Saigal ([ORCID: 0009-0005-5548-3016](https://orcid.org/0009-0005-5548-3016)) — https://github.com/Rishav1996/model-router*
 
 See [`CITATION.cff`](CITATION.cff) for the machine-readable version (GitHub surfaces this automatically via the "Cite this repository" button in the sidebar).
 

@@ -6,6 +6,7 @@ authors:
   - family-names: "Saigal"
     given-names: "Rishav"
     email: "rishavsaigal@gmail.com"
+    orcid: "https://orcid.org/0009-0005-5548-3016"
 repository-code: "https://github.com/Rishav1996/model-router"
 license: MIT
 version: 1.0.0
