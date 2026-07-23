@@ -1,7 +1,7 @@
 {
   "name": "model-router",
   "displayName": "Model Router",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Recommends the cheapest Claude model and effort level that will still get a task right on the first try, by scoring capability requirements and cost exposure as two separate axes.",
   "author": {
     "name": "Rishav Saigal",
