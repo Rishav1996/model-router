@@ -1,5 +1,7 @@
 # model-router
 
+[![DOI](https://zenodo.org/badge/1310419689.svg)](https://doi.org/10.5281/zenodo.21520842)
+
 A Claude Code / Claude API skill that recommends the cheapest Claude model and effort level that will still get the current request right on the first try — by scoring capability requirements and cost exposure as two separate axes instead of one blended "complexity" score.
 
 Most routers score task complexity on a single scale and map it to a model. That conflates two independent questions and produces confident nonsense on the edges — a hard problem in a tiny context scores low and gets routed to Haiku, while a long trivial task in a huge context scores high and gets routed to Opus.
@@ -69,11 +71,12 @@ Authored by **Rishav Saigal**. This repo is MIT-licensed — free to use, adapt,
   author  = {Saigal, Rishav},
   title   = {model-router: a two-axis Claude model and effort router},
   year    = {2026},
-  url     = {https://github.com/Rishav1996/model-router}
+  url     = {https://github.com/Rishav1996/model-router},
+  doi     = {10.5281/zenodo.21520842}
 }
 ```
 
-Or plain text: *"model-router" by Rishav Saigal ([ORCID: 0009-0005-5548-3016](https://orcid.org/0009-0005-5548-3016)) — https://github.com/Rishav1996/model-router*
+Or plain text: *"model-router" by Rishav Saigal ([ORCID: 0009-0005-5548-3016](https://orcid.org/0009-0005-5548-3016)) — https://doi.org/10.5281/zenodo.21520842*
 
 See [`CITATION.cff`](CITATION.cff) for the machine-readable version (GitHub surfaces this automatically via the "Cite this repository" button in the sidebar).
 

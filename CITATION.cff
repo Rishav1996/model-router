@@ -10,6 +10,7 @@ authors:
 repository-code: "https://github.com/Rishav1996/model-router"
 license: MIT
 version: 1.0.2
+doi: "10.5281/zenodo.21520842"
 date-released: 2026-07-24
 abstract: >
   A Claude Code / Claude API skill that recommends the cheapest Claude model
