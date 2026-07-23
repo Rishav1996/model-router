@@ -16,6 +16,7 @@ There is no build, lint, or test tooling. `model-router.skill` is a zip archive 
 - [skills/model-router/references/model-catalog.md](skills/model-router/references/model-catalog.md) — reference doc: per-token pricing, context limits, effort-level support per model, discount levers (caching/batch), cost math. Meant to be read on demand, not loaded every turn.
 - [skills/model-router/references/scoring-rubric.md](skills/model-router/references/scoring-rubric.md) — reference doc: exemplar anchors for each of the five scoring dimensions (D/S/A/C/O), tie-break rules, common misscoring patterns, and guidance for reading the self-calibration override log.
 - `model-router.skill` — a zip archive bundling `model-router/SKILL.md`, `model-router/references/scoring-rubric.md`, and `model-router/references/model-catalog.md` (for the non-plugin, drop-into-a-skills-folder install path). **Rebuild it from `skills/model-router/` whenever that source changes** rather than editing the archive directly.
+- [CITATION.cff](CITATION.cff) — machine-readable citation metadata; GitHub renders a "Cite this repository" button from it automatically. Keep it in sync with the author/repo info in `.claude-plugin/plugin.json` and the attribution footer at the bottom of `skills/model-router/SKILL.md`.
 
 ## Architecture: how the skill's logic fits together
 

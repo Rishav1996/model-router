@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this skill, or adapt its scoring model, please cite it as below."
+title: "model-router: a two-axis Claude model and effort router"
+type: software
+authors:
+  - family-names: "Saigal"
+    given-names: "Rishav"
+    email: "rishavsaigal@gmail.com"
+repository-code: "https://github.com/Rishav1996/model-router"
+license: MIT
+version: 1.0.0
+date-released: 2026-07-24
+abstract: >
+  A Claude Code / Claude API skill that recommends the cheapest Claude model
+  and effort level that will still get a task right on the first try, by
+  scoring capability requirements (a maximum over depth, stakes, and
+  agentic-loop complexity) and cost exposure (a sum over context, output, and
+  agentic-loop complexity) as two separate axes instead of one blended
+  complexity score.
+keywords:
+  - claude
+  - claude-code
+  - model-routing
+  - cost-optimization
+  - llm
+  - anthropic

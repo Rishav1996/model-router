@@ -148,3 +148,7 @@ Note what the two axes did here: naive complexity scoring sends this to Opus. Th
   Lever: Batch API halves it again if this isn't time-sensitive
 ```
 The model was never the lever here. Batch was.
+
+---
+
+Author: Rishav Saigal ([github.com/Rishav1996/model-router](https://github.com/Rishav1996/model-router)). MIT licensed — free to use and adapt; if you redistribute this skill or build on its scoring model, please keep this attribution or cite the repository (see `CITATION.cff`).

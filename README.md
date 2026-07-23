@@ -60,6 +60,23 @@ Pricing, context windows, and model IDs in `model-catalog.md` are dated ("verifi
 
 Re-verifying and updating the catalog every few weeks (or whenever a new model ships) is the main maintenance burden of this repo.
 
+## Citation
+
+Authored by **Rishav Saigal**. This repo is MIT-licensed — free to use, adapt, and redistribute — but if you build on it, please keep the attribution or cite it:
+
+```bibtex
+@software{saigal_model_router_2026,
+  author  = {Saigal, Rishav},
+  title   = {model-router: a two-axis Claude model and effort router},
+  year    = {2026},
+  url     = {https://github.com/Rishav1996/model-router}
+}
+```
+
+Or plain text: *"model-router" by Rishav Saigal — https://github.com/Rishav1996/model-router*
+
+See [`CITATION.cff`](CITATION.cff) for the machine-readable version (GitHub surfaces this automatically via the "Cite this repository" button in the sidebar).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
